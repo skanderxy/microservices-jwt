@@ -11,14 +11,15 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Service
 public class OrderService {
-    private final OrderRepository orderRepository;
+	private final OrderRepository orderRepository;
 
-    public void placeOrder(OrderRequest orderRequest) {
-        Order order = Order.builder().orderNumber(UUID.randomUUID().toString())
-                .skuCode(orderRequest.skuCode())
-                .price(orderRequest.price())
-                .quantity(orderRequest.quantity())
-                .build();
-        orderRepository.save(order);
-    }
+	public OrderRequest placeOrder(OrderRequest orderRequest) {
+		Order order = Order.builder().orderNumber(UUID.randomUUID().toString())
+				.skuCode(orderRequest.skuCode())
+				.price(orderRequest.price())
+				.quantity(orderRequest.quantity())
+				.build();
+		Order saveOrder = orderRepository.save(order);
+		return new OrderRequest(saveOrder.getId(), saveOrder.getOrderNumber(), orderRequest.skuCode(), orderRequest.price(), orderRequest.quantity());
+	}
 }

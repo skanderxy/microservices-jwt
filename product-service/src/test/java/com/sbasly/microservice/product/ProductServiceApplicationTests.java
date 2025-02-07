@@ -1,6 +1,7 @@
 package com.sbasly.microservice.product;
 
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,7 +41,7 @@ class ProductServiceApplicationTests {
 				}
 				""";
 		RestAssured.given()
-				.contentType("application/json")
+				.contentType(ContentType.JSON)
 				.body(requestBody)
 				.post("/api/products")
 				.then()
