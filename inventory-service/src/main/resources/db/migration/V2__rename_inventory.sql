@@ -1,0 +1,1 @@
+rename table inventory_service.inventory to t_inventory;
